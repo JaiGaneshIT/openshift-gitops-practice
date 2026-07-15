@@ -31,3 +31,18 @@ spec:
   selector:
     app: nginx
   type: ClusterIP
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: gitops-nginx-route
+  namespace: openshift-gitops-apps
+spec:
+  to:
+    kind: Service
+    name: gitops-nginx-service
+    weight: 100
+  port:
+    targetPort: 8080
+  tls:
+    termination: edge
